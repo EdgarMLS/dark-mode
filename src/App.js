@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { ThemeProvider } from "styled-components";
+import styled from 'styled-components';
+import Card from './elements/Card';
+import Header from './components/Header';
+import Separator from './elements/Separator';
+import Form from './components/Form';
+import themes from './theme';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const Body = styled.div`
+    width:100%;
+    min-height:100vh;
+    background-color: ${props => props.theme.pageBackground};
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding: 20px;
+    transition: all .5s ease;
+`;
+
+const App = () => {
+
+    const [theme, setTheme] = useState("light");
+
+    return (
+
+        <ThemeProvider theme={themes[theme]}>
+            <Body>
+                <Card>
+                    <Header theme={theme} setTheme={setTheme} />
+                    <Separator />
+                    <Form />
+                </Card>
+            </Body>
+        </ThemeProvider>
+
+    );
 }
 
+
 export default App;
+
